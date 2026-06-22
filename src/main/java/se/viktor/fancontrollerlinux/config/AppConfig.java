@@ -1,0 +1,36 @@
+package se.viktor.fancontroller.config;
+
+import java.util.prefs.Preferences;
+
+/**
+ * Persists user preferences between sessions using the Java Preferences API.
+ * Data is stored in the OS preference store (~/.java/.userPrefs on Linux).
+ * No external dependencies needed.
+ */
+public class AppConfig {
+
+    private static final String KEY_WIN_X        = "window.x";
+    private static final String KEY_WIN_Y        = "window.y";
+    private static final String KEY_POLL_SECONDS = "poll.seconds";
+    private static final String KEY_MAX_RPM      = "max.rpm";
+
+    private final Preferences prefs =
+        Preferences.userNodeForPackage(AppConfig.class);
+
+    // ── Window position ───────────────────────────────────────────────────────
+
+    public double getWindowX()              { return prefs.getDouble(KEY_WIN_X, 40); }
+    public double getWindowY()              { return prefs.getDouble(KEY_WIN_Y, 40); }
+    public void   setWindowX(double x)     { prefs.putDouble(KEY_WIN_X, x); }
+    public void   setWindowY(double y)     { prefs.putDouble(KEY_WIN_Y, y); }
+
+    // ── Poll interval ─────────────────────────────────────────────────────────
+
+    public int  getPollSeconds()            { return prefs.getInt(KEY_POLL_SECONDS, 2); }
+    public void setPollSeconds(int seconds) { prefs.putInt(KEY_POLL_SECONDS, seconds); }
+
+    // ── RPM scale (used by FanCard progress bar) ──────────────────────────────
+
+    public int  getMaxRpm()                 { return prefs.getInt(KEY_MAX_RPM, 2000); }
+    public void setMaxRpm(int maxRpm)       { prefs.putInt(KEY_MAX_RPM, maxRpm); }
+}

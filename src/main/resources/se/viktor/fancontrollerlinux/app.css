@@ -1,0 +1,187 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Fan Controller Linux – JavaFX glassmorphism theme
+   JavaFX CSS uses -fx- prefixed properties.
+   No backdrop-filter: approximate glass with dark translucent backgrounds.
+───────────────────────────────────────────────────────────────────────────── */
+
+.root {
+    -fx-background-color: transparent;
+}
+
+/* ── Glass panel ─────────────────────────────────────────────────────────── */
+
+.glass-panel {
+    -fx-background-color: rgba(10, 14, 30, 0.80);
+    -fx-background-radius: 18;
+    -fx-border-color: rgba(255, 255, 255, 0.10);
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.60), 32, 0, 0, 8);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.logo-icon {
+    -fx-text-fill: #0a84ff;
+    -fx-font-size: 22px;
+    -fx-effect: dropshadow(gaussian, rgba(10, 132, 255, 0.8), 12, 0, 0, 0);
+}
+
+.logo-title {
+    -fx-text-fill: rgba(255, 255, 255, 0.95);
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.logo-sub {
+    -fx-text-fill: rgba(255, 255, 255, 0.28);
+    -fx-font-size: 9px;
+    -fx-font-family: "DejaVu Sans Mono";
+}
+
+.win-btn {
+    -fx-text-fill: rgba(255, 255, 255, 0.35);
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-padding: 2 7 2 7;
+    -fx-background-radius: 6;
+}
+.win-btn:hover {
+    -fx-text-fill: rgba(255, 255, 255, 0.80);
+    -fx-background-color: rgba(255, 255, 255, 0.08);
+}
+.win-close:hover {
+    -fx-text-fill: #ff453a;
+    -fx-background-color: rgba(255, 69, 58, 0.15);
+}
+
+/* ── Section titles ──────────────────────────────────────────────────────── */
+
+.section-title {
+    -fx-text-fill: rgba(255, 255, 255, 0.28);
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-font-family: "DejaVu Sans Mono";
+}
+
+/* ── Temperature cards ───────────────────────────────────────────────────── */
+
+.temp-card {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(255, 255, 255, 0.07);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+.temp-card:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-border-color: rgba(255, 255, 255, 0.14);
+}
+
+.temp-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.82);
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.driver-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.28);
+    -fx-font-size: 9px;
+    -fx-font-family: "DejaVu Sans Mono";
+}
+
+/* ── Fan cards ───────────────────────────────────────────────────────────── */
+
+.fan-card {
+    -fx-background-color: rgba(255, 255, 255, 0.04);
+    -fx-background-radius: 12;
+    -fx-border-color: rgba(255, 255, 255, 0.07);
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+.fan-card:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-border-color: rgba(255, 255, 255, 0.14);
+}
+
+.fan-spin {
+    -fx-text-fill: #0a84ff;
+    -fx-font-size: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(10, 132, 255, 0.6), 10, 0, 0, 0);
+}
+
+.fan-name {
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.rpm-value {
+    -fx-text-fill: rgba(255, 255, 255, 0.88);
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-font-family: "DejaVu Sans Mono";
+}
+
+/* ── Bar rows ────────────────────────────────────────────────────────────── */
+
+.bar-tag {
+    -fx-text-fill: rgba(255, 255, 255, 0.22);
+    -fx-font-size: 9px;
+    -fx-font-family: "DejaVu Sans Mono";
+}
+
+.pct-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.38);
+    -fx-font-size: 10px;
+    -fx-font-family: "DejaVu Sans Mono";
+}
+
+/* ── RPM progress bar ────────────────────────────────────────────────────── */
+
+.rpm-bar {
+    -fx-pref-height: 5px;
+    -fx-accent: #0a84ff;
+}
+.rpm-bar > .bar {
+    -fx-background-color: linear-gradient(to right, #0a84ff, #5ac8fa);
+    -fx-background-radius: 3;
+    -fx-effect: dropshadow(gaussian, rgba(10, 132, 255, 0.5), 6, 0, 0, 0);
+}
+.rpm-bar > .track {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 3;
+}
+
+/* ── PWM slider ──────────────────────────────────────────────────────────── */
+
+.pwm-slider {
+    -fx-pref-height: 20px;
+}
+.pwm-slider .track {
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 3;
+    -fx-pref-height: 5px;
+}
+.pwm-slider .thumb {
+    -fx-background-color: -fx-accent;
+    -fx-background-radius: 50%;
+    -fx-pref-width: 14px;
+    -fx-pref-height: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(10, 132, 255, 0.75), 10, 0, 0, 0);
+}
+.pwm-slider:disabled .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-effect: none;
+}
+.pwm-slider:disabled .track {
+    -fx-opacity: 0.3;
+}
+
+/* ── Warning label ───────────────────────────────────────────────────────── */
+
+.warning-label {
+    -fx-text-fill: #ff9f0a;
+    -fx-font-size: 10px;
+    -fx-font-family: "DejaVu Sans Mono";
+}
