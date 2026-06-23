@@ -3,6 +3,7 @@ package se.viktor.fancontrollerlinux.ui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import se.viktor.fancontrollerlinux.config.AppConfig;
@@ -16,25 +17,11 @@ import se.viktor.fancontrollerlinux.ui.components.TempGauge;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Owns the full widget layout and wires together all components.
- *
- *  ┌──────────────────────────────────────────┐
- *  │  HeaderBar (draggable)                   │
- *  ├──────────────────────────────────────────┤
- *  │  ▲ TEMPERATURER                          │
- *  │  [TempGauge] [TempGauge] ...             │
- *  ├──────────────────────────────────────────┤
- *  │  ◎ FLÄKTAR                               │
- *  │  [FanCard]                               │
- *  │  [FanCard]                               │
- *  └──────────────────────────────────────────┘
- */
 public class MainView {
 
-    private final VBox      root;
-    private final FlowPane  tempPane;
-    private final VBox      fanPane;
+    private final VBox         root;
+    private final FlowPane     tempPane;
+    private final VBox         fanPane;
     private final HwmonService hwmon;
 
     private final List<TempGauge> gauges   = new ArrayList<>();
@@ -61,10 +48,20 @@ public class MainView {
         panel.setMinWidth(480);
         panel.setMaxWidth(480);
 
+        // ScrollPane so all content is reachable
+        ScrollPane scrollPane = new ScrollPane(panel);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+
         // Transparent root — padding gives the dropshadow room to render
-        root = new VBox(panel);
+        root = new VBox(scrollPane);
         root.setStyle("-fx-background-color: transparent;");
         root.setPadding(new Insets(12));
+        root.setMinWidth(504);
+        root.setMinHeight(400);
+        root.setMaxHeight(700);
     }
 
     /** Called by FanControllerApp's Timeline every 2 seconds. */
@@ -85,9 +82,9 @@ public class MainView {
             gauges.clear();
             tempPane.getChildren().clear();
             for (TempSensor t : temps) {
-                TempGauge gauge  = new TempGauge();
-                Label     lbl    = new Label(t.label());
-                Label     drv    = new Label(t.driver());
+                TempGauge gauge = new TempGauge();
+                Label     lbl   = new Label(t.label());
+                Label     drv   = new Label(t.driver());
                 lbl.getStyleClass().add("temp-label");
                 drv.getStyleClass().add("driver-label");
                 VBox box = new VBox(4, gauge, lbl, drv);
