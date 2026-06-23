@@ -1,7 +1,7 @@
-package se.viktor.fancontroller.service;
+package se.viktor.fancontrollerlinux.service;
 
-import se.viktor.fancontroller.model.FanSensor;
-import se.viktor.fancontroller.model.TempSensor;
+import se.viktor.fancontrollerlinux.model.FanSensor;
+import se.viktor.fancontrollerlinux.model.TempSensor;
 
 import java.io.IOException;
 import java.nio.file.*;

@@ -1,4 +1,4 @@
-package se.viktor.fancontroller.ui.components;
+package se.viktor.fancontrollerlinux.ui.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -6,9 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.*;
-import se.viktor.fancontroller.model.FanSensor;
-import se.viktor.fancontroller.service.HwmonService;
-import se.viktor.fancontroller.ui.util.ColorScale;
+import se.viktor.fancontrollerlinux.model.FanSensor;
+import se.viktor.fancontrollerlinux.service.HwmonService;
+import se.viktor.fancontrollerlinux.ui.util.ColorScale;
 
 /**
  * Glass card showing one fan's RPM and a PWM control slider.

@@ -1,4 +1,4 @@
-package se.viktor.fancontroller;
+package se.viktor.fancontrollerlinux;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -8,9 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import se.viktor.fancontroller.config.AppConfig;
-import se.viktor.fancontroller.service.HwmonService;
-import se.viktor.fancontroller.ui.MainView;
+import se.viktor.fancontrollerlinux.config.AppConfig;
+import se.viktor.fancontrollerlinux.service.HwmonService;
+import se.viktor.fancontrollerlinux.ui.MainView;
 
 public class FanControllerApp extends Application {
 

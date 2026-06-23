@@ -1,4 +1,4 @@
-package se.viktor.fancontroller.ui.components;
+package se.viktor.fancontrollerlinux.ui.components;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;

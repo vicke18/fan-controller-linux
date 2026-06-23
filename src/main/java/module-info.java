@@ -1,8 +1,8 @@
 module se.viktor.fancontrollerlinux {
     requires javafx.controls;
-    requires javafx.fxml;
+    requires javafx.graphics;
+    requires java.prefs;
 
 
-    opens se.viktor.fancontrollerlinux to javafx.fxml;
     exports se.viktor.fancontrollerlinux;
 }

@@ -1,4 +1,4 @@
-package se.viktor.fancontroller.ui.components;
+package se.viktor.fancontrollerlinux.ui.components;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,7 +9,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
-import se.viktor.fancontroller.ui.util.ColorScale;
+import se.viktor.fancontrollerlinux.ui.util.ColorScale;
 
 /**
  * Canvas-based circular gauge for one temperature sensor.

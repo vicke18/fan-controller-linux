@@ -1,4 +1,4 @@
-package se.viktor.fancontroller.config;
+package se.viktor.fancontrollerlinux.config;
 
 import java.util.prefs.Preferences;
 

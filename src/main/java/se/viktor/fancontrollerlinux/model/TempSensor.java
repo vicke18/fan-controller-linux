@@ -1,4 +1,4 @@
-package se.viktor.fancontroller.model;
+package se.viktor.fancontrollerlinux.model;
 
 public record TempSensor(
         String id,

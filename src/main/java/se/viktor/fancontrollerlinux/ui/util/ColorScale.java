@@ -1,4 +1,4 @@
-package se.viktor.fancontroller.ui.util;
+package se.viktor.fancontrollerlinux.ui.util;
 
 import javafx.scene.paint.Color;
 

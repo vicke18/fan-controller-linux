@@ -1,4 +1,4 @@
-package se.viktor.fancontroller.model;
+package se.viktor.fancontrollerlinux.model;
 
 public record FanSensor(
         String id,

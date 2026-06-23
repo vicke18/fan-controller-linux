@@ -1,17 +1,17 @@
-package se.viktor.fancontroller.ui;
+package se.viktor.fancontrollerlinux.ui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import se.viktor.fancontroller.config.AppConfig;
-import se.viktor.fancontroller.model.FanSensor;
-import se.viktor.fancontroller.model.TempSensor;
-import se.viktor.fancontroller.service.HwmonService;
-import se.viktor.fancontroller.ui.components.FanCard;
-import se.viktor.fancontroller.ui.components.HeaderBar;
-import se.viktor.fancontroller.ui.components.TempGauge;
+import se.viktor.fancontrollerlinux.config.AppConfig;
+import se.viktor.fancontrollerlinux.model.FanSensor;
+import se.viktor.fancontrollerlinux.model.TempSensor;
+import se.viktor.fancontrollerlinux.service.HwmonService;
+import se.viktor.fancontrollerlinux.ui.components.FanCard;
+import se.viktor.fancontrollerlinux.ui.components.HeaderBar;
+import se.viktor.fancontrollerlinux.ui.components.TempGauge;
 
 import java.util.ArrayList;
 import java.util.List;
