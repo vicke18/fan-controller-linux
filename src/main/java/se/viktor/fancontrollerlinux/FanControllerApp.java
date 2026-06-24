@@ -31,9 +31,14 @@ public class FanControllerApp extends Application {
         stage.setTitle("Fan Controller Linux");
         stage.setScene(scene);
 
+
         // Restore last window position
         stage.setX(config.getWindowX());
         stage.setY(config.getWindowY());
+        stage.setWidth(504);
+        stage.setHeight(600);
+        stage.setMinWidth(504);
+        stage.setMinHeight(300);
         stage.show();
 
         // Save position when window moves
