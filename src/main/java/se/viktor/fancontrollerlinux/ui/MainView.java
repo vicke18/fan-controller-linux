@@ -3,6 +3,7 @@ package se.viktor.fancontrollerlinux.ui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import se.viktor.fancontrollerlinux.config.AppConfig;
@@ -10,40 +11,37 @@ import se.viktor.fancontrollerlinux.model.FanSensor;
 import se.viktor.fancontrollerlinux.model.TempSensor;
 import se.viktor.fancontrollerlinux.service.HwmonService;
 import se.viktor.fancontrollerlinux.ui.components.FanCard;
+import se.viktor.fancontrollerlinux.ui.components.FilterDialog;
 import se.viktor.fancontrollerlinux.ui.components.HeaderBar;
 import se.viktor.fancontrollerlinux.ui.components.TempGauge;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Owns the full widget layout and wires together all components.
- *
- *  ┌──────────────────────────────────────────┐
- *  │  HeaderBar (draggable)                   │
- *  ├──────────────────────────────────────────┤
- *  │  ▲ TEMPERATURER                          │
- *  │  [TempGauge] [TempGauge] ...             │
- *  ├──────────────────────────────────────────┤
- *  │  ◎ FLÄKTAR                               │
- *  │  [FanCard]                               │
- *  │  [FanCard]                               │
- *  └──────────────────────────────────────────┘
- */
 public class MainView {
 
-    private final VBox      root;
-    private final FlowPane  tempPane;
-    private final VBox      fanPane;
+    private final VBox         root;
+    private final FlowPane     tempPane;
+    private final VBox         fanPane;
     private final HwmonService hwmon;
+    private final AppConfig    config;
+    private final Stage        stage;
 
     private final List<TempGauge> gauges   = new ArrayList<>();
     private final List<FanCard>   fanCards = new ArrayList<>();
 
-    public MainView(HwmonService hwmon, Stage stage, AppConfig config) {
-        this.hwmon = hwmon;
+    // All sensors from last poll — needed by FilterDialog
+    private List<TempSensor> lastTemps = new ArrayList<>();
+    private List<FanSensor>  lastFans  = new ArrayList<>();
 
+    public MainView(HwmonService hwmon, Stage stage, AppConfig config) {
+        this.hwmon  = hwmon;
+        this.config = config;
+        this.stage  = stage;
+
+        // Header with settings button wired up
         HeaderBar header = new HeaderBar(stage);
+        header.setOnSettingsClick(this::openFilterDialog);
 
         // Temperature section
         Label tempTitle = sectionTitle("▲  TEMPERATURER");
@@ -54,29 +52,54 @@ public class MainView {
         Label fanTitle = sectionTitle("◎  FLÄKTAR");
         fanPane = new VBox(10);
 
-        // Glass panel wrapping everything
+        // Glass panel
         VBox panel = new VBox(16, header, tempTitle, tempPane, fanTitle, fanPane);
         panel.getStyleClass().add("glass-panel");
         panel.setPadding(new Insets(22));
         panel.setMinWidth(480);
         panel.setMaxWidth(480);
 
-        // Transparent root — padding gives the dropshadow room to render
-        root = new VBox(panel);
+        // ScrollPane so all content is reachable
+        ScrollPane scrollPane = new ScrollPane(panel);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+
+        root = new VBox(scrollPane);
         root.setStyle("-fx-background-color: transparent;");
         root.setPadding(new Insets(12));
+        root.setMinWidth(504);
+        root.setMinHeight(400);
+        root.setMaxHeight(700);
     }
 
-    /** Called by FanControllerApp's Timeline every 2 seconds. */
     public void refresh() {
-        List<TempSensor> temps = hwmon.readTemps();
-        List<FanSensor>  fans  = hwmon.readFans();
+        lastTemps = hwmon.readTemps();
+        lastFans  = hwmon.readFans();
 
-        syncTempGauges(temps);
-        syncFanCards(fans);
+        // Filter out hidden sensors before syncing UI
+        List<TempSensor> visibleTemps = lastTemps.stream()
+            .filter(t -> !config.isHidden(t.id()))
+            .toList();
+
+        List<FanSensor> visibleFans = lastFans.stream()
+            .filter(f -> !config.isHidden(f.id()))
+            .toList();
+
+        syncTempGauges(visibleTemps);
+        syncFanCards(visibleFans);
     }
 
     public VBox getRoot() { return root; }
+
+    // ── Filter dialog ─────────────────────────────────────────────────────────
+
+    private void openFilterDialog() {
+        FilterDialog dialog = new FilterDialog(config);
+        dialog.setOnSave(this::refresh);
+        dialog.show(stage, lastTemps, lastFans);
+    }
 
     // ── Private helpers ───────────────────────────────────────────────────────
 
@@ -85,9 +108,9 @@ public class MainView {
             gauges.clear();
             tempPane.getChildren().clear();
             for (TempSensor t : temps) {
-                TempGauge gauge  = new TempGauge();
-                Label     lbl    = new Label(t.label());
-                Label     drv    = new Label(t.driver());
+                TempGauge gauge = new TempGauge();
+                Label     lbl   = new Label(t.label());
+                Label     drv   = new Label(t.driver());
                 lbl.getStyleClass().add("temp-label");
                 drv.getStyleClass().add("driver-label");
                 VBox box = new VBox(4, gauge, lbl, drv);

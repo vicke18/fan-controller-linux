@@ -9,15 +9,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
-/**
- * The draggable header bar:
- *   ◈  Fan Controller Linux      [−] [×]
- *
- * Extracted from MainView so it owns its own drag logic and window buttons.
- */
 public class HeaderBar extends HBox {
 
     private double dragX, dragY;
+    private Runnable onSettingsClick;
 
     public HeaderBar(Stage stage) {
         super(10);
@@ -32,25 +27,31 @@ public class HeaderBar extends HBox {
         title.getStyleClass().add("logo-title");
         Label sub = new Label("hwmon · sysfs");
         sub.getStyleClass().add("logo-sub");
-
         var titleBox = new javafx.scene.layout.VBox(1, title, sub);
 
-        // Spacer pushes buttons to the right
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        // Window buttons
+        // Settings button
+        Label btnSettings = new Label("⚙");
+        btnSettings.getStyleClass().add("win-btn");
+        btnSettings.setOnMouseClicked(e -> {
+            if (onSettingsClick != null) onSettingsClick.run();
+        });
+
+        // Minimize button
         Label btnMin = new Label("−");
         btnMin.getStyleClass().add("win-btn");
         btnMin.setOnMouseClicked(e -> stage.setIconified(true));
 
+        // Close button
         Label btnClose = new Label("×");
         btnClose.getStyleClass().addAll("win-btn", "win-close");
         btnClose.setOnMouseClicked(e -> Platform.exit());
 
-        getChildren().addAll(logo, titleBox, spacer, btnMin, btnClose);
+        getChildren().addAll(logo, titleBox, spacer, btnSettings, btnMin, btnClose);
 
-        // Dragging moves the window
+        // Drag to move window
         setOnMousePressed(e -> {
             dragX = e.getSceneX();
             dragY = e.getSceneY();
@@ -59,5 +60,9 @@ public class HeaderBar extends HBox {
             stage.setX(e.getScreenX() - dragX);
             stage.setY(e.getScreenY() - dragY);
         });
+    }
+
+    public void setOnSettingsClick(Runnable handler) {
+        this.onSettingsClick = handler;
     }
 }
