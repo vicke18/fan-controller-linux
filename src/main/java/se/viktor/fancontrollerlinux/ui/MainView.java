@@ -80,12 +80,12 @@ public class MainView {
 
         // Filter out hidden sensors before syncing UI
         List<TempSensor> visibleTemps = lastTemps.stream()
-            .filter(t -> !config.isHidden(t.id()))
-            .toList();
+                .filter(t -> !config.isHidden(t.id()))
+                .toList();
 
         List<FanSensor> visibleFans = lastFans.stream()
-            .filter(f -> !config.isHidden(f.id()))
-            .toList();
+                .filter(f -> !config.isHidden(f.id()))
+                .toList();
 
         syncTempGauges(visibleTemps);
         syncFanCards(visibleFans);
